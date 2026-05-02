@@ -123,12 +123,10 @@ st.markdown("""
 # =========================
 # Load Model & Columns
 # =========================
-try:
-    pipeline = joblib.load('xgb_pipeline_new.pkl')
-    expected_columns = joblib.load('columns.pkl')
-except:
-    pipeline = joblib.load('xgb_pipeline.pkl')
-    expected_columns = joblib.load('columns.pkl')
+
+pipeline = joblib.load('xgb_pipeline_new.pkl')
+expected_columns = joblib.load('columns.pkl')
+
 
 # =========================
 # Sidebar - Feature Categories
