@@ -1,14 +1,15 @@
+2. README.md (Documentation)
 🌌 Oracle Cognitive Terminal v15.1
-Oracle Cognitive Terminal ek advanced real estate valuation system hai jo state-of-the-art machine learning models aur interactive geospatial visualization ka istemal karke property ki keemat ka accurate anuman lagata hai.
+Oracle Cognitive Terminal is an advanced real estate valuation system that utilizes state-of-the-art machine learning models and interactive geospatial visualization to provide accurate property price estimations.
 
-🚀 Features
-Geospatial Vector Intercept: Interactive Map (Folium) ke zariye precise location selection.
+🚀 Key Features
+Geospatial Vector Intercept: Precise location selection using interactive maps (Folium).
 
-Quantum Core Inference: scikit-learn trained model ka use karke real-time price prediction.
+Quantum Core Inference: Real-time price prediction powered by scikit-learn trained models.
 
-Neural Glass UI: Streamlit ke saath custom CSS/HTML/JS integration ek futuristic look dene ke liye.
+Neural Glass UI: Futuristic user interface built with custom CSS, HTML, and JavaScript integration within Streamlit.
 
-Hyper-Velocity Processing: Smooth UI transitions aur loading overlays ke saath performance optimization.
+Hyper-Velocity Processing: Optimized performance featuring smooth UI transitions and dynamic loading overlays.
 
 🛠️ Tech Stack
 Frontend: Streamlit, CSS3, JavaScript (Particle Engine)
@@ -20,44 +21,24 @@ Data Science: Pandas, NumPy, Scikit-Learn, Pickle
 Visualization: Folium, Streamlit-Folium
 
 📋 Prerequisites
-Aapke system mein ye libraries installed honi chahiye:
+Ensure the following libraries are installed in your environment:
 
 Bash
 pip install streamlit pandas numpy scikit-learn folium streamlit-folium
-⚙️ How to Run
-Apne project folder mein kc_house_model.pkl, bac.jpg, aur process.mp4 files rakhein.
+⚙️ How to Run the Project
+Prepare Assets: Place your kc_house_model.pkl, bac.jpg, and process.mp4 files in the project root directory.
 
-Terminal mein jaakar niche di gayi command run karein:
+Launch Terminal: Open your terminal/command prompt in the project folder.
+
+Execute: Run the following command:
 
 Bash
 streamlit run app.py
-Browser mein open hone wale URL (default: http://localhost:8501) par terminal access karein.
+Access: Open the local URL provided in the terminal (default: http://localhost:8501) in your web browser.
 
-🏗️ Model Architecture
-Terminal location_cluster aur zipcode features ka use karke latent spatial patterns ko decode karta hai, jisse non-linear pricing trends ka analysis ho sake.
-
-⚠️ Troubleshooting
-Map not syncing? Ensure st_folium ka center parameter active hai.
-
-Model load error? Check karein ki kc_house_model.pkl usi directory mein ho jahan app.py hai.
-
-Asset missing? bac.jpg (background) aur process.mp4 (loading video) ka path verify karein.
-
-Developed for 2026 High-Frequency Predictive Analysis.
-
-## Features
-- Data preprocessing
-- Model training
-- Prediction system
-- Streamlit deployment
-
-## Tech Stack
-- Python
-- Pandas
-- NumPy
-- Scikit-learn
-- Streamlit
-
-## Run Project
-
-streamlit run app.py
+🏗️ Project Components
+-Data Preprocessing: Cleaning and feature engineering for house attributes.
+-Model Training: Training regression models (e.g., XGBoost, Random Forest) on property data.
+-Prediction System: Real-time inference engine processing user inputs.
+-Streamlit Deployment: Production-ready web interface for end-user interaction.
+-Developed for 2026 High-Frequency Predictive Real Estate Analysis.
