@@ -1,408 +1,392 @@
 import streamlit as st
 import pandas as pd
-import joblib
-import plotly.graph_objects as go
-import plotly.express as px
 import numpy as np
+import pickle
 import time
 from datetime import datetime
+import folium
+from streamlit_folium import st_folium
+import base64
 
-# =========================
-# Sklearn compatibility fix (2026)
-# =========================
-import sklearn.compose._column_transformer as ct
-if not hasattr(ct, '_RemainderColsList'):
-    from sklearn.utils._set_output import _SetOutputMixin
-    class _RemainderColsList(_SetOutputMixin, list):
-        pass
-    ct._RemainderColsList = _RemainderColsList
-
-# =========================
-# 2026 Page Config
-# =========================
+# ==========================================
+# 2026 QUANTUM HYPER-TERMINAL GOD-MODE v15.0
+# ==========================================
 st.set_page_config(
-    page_title="🏠 Neural House Oracle 2026",
-    page_icon="🏡",
+    page_title="🌌 ORACLE COGNITIVE TERMINAL v15.0",
+    page_icon="🧠",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# =========================
-# 2026 CYBER-NEURAL CSS
-# =========================
-st.markdown("""
+# Hardware Accelerated Asset Encoders
+@st.cache_data
+def get_base64_image(img_path):
+    try:
+        with open(img_path, "rb") as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+    except Exception:
+        return ""
+
+@st.cache_data
+def get_base64_video(video_path):
+    try:
+        with open(video_path, "rb") as f:
+            data = f.read()
+        return base64.b64encode(data).decode()
+    except Exception:
+        return ""
+
+bin_str = get_base64_image("bac.jpg")
+process_video_b64 = get_base64_video("process.mp4")
+
+# Initialize Session States for Dynamic Layout Control
+if 'predicted' not in st.session_state: st.session_state.predicted = False
+if 'valuation' not in st.session_state: st.session_state.valuation = 0.0
+if 'clicked_lat' not in st.session_state: st.session_state.clicked_lat = 47.6062  
+if 'clicked_long' not in st.session_state: st.session_state.clicked_long = -122.3321
+
+# ==========================================
+# HYPER-ATTRACTION INTEGRATED VISUAL ENGINE
+# ==========================================
+st.markdown(f"""
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@100;400;700&display=swap');
 
-/* 2026 Cyberpunk Neural Grid */
-:root {
-    --neural-glow: 0 0 30px rgba(0, 255, 255, 0.6), 0 0 60px rgba(255, 0, 255, 0.4);
-    --cyber-blue: #00d9ff;
-    --neon-pink: #ff00ff;
-    --matrix-green: #00ff88;
-}
+* {{ font-family: 'JetBrains Mono', monospace; }}
 
-* { font-family: 'JetBrains Mono', monospace; }
-
-.stApp {
-    background: radial-gradient(ellipse at top, #000428 0%, #004e92 35%, #000428 100%);
+.stApp {{
+    background-image: linear-gradient(rgba(0, 5, 10, 0.40), rgba(0, 8, 4, 0.45)), url("data:image/jpeg;base64,{bin_str}");
+    background-size: cover;
+    background-position: center;
     background-attachment: fixed;
-}
+}}
 
-/* Neural Glass 2026 */
-.neural-glass {
-    background: rgba(0, 4, 40, 0.9);
-    backdrop-filter: blur(50px) saturate(200%);
+/* Cleaned Glass Panels - Green Box Border Removed */
+.neural-glass {{
+    background: rgba(1, 12, 18, 0.35);
+    backdrop-filter: blur(25px) saturate(280%);
+    -webkit-backdrop-filter: blur(25px);
     border: 1px solid rgba(0, 217, 255, 0.3);
     border-radius: 24px;
-    box-shadow: 
-        0 30px 60px rgba(0,0,0,0.5),
-        inset 0 1px 0 rgba(0,217,255,0.2),
-        var(--neural-glow);
-    position: relative;
-    overflow: hidden;
-    transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-}
+    box-shadow: 0 30px 60px rgba(0,0,0,0.85);
+    padding: 2.2rem;
+    margin-bottom: 1.5rem;
+}}
 
-.neural-glass::before {
-    content: '';
-    position: absolute;
-    top: 0; right: 0; bottom: 0; left: 0;
-    background: linear-gradient(45deg, transparent 30%, rgba(0,217,255,0.1) 50%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.5s;
-    animation: neuralScan 3s linear infinite;
-}
+div[data-testid="stMarkdownContainer"] p, label {{
+    color: #ffffff !important;
+    font-weight: 700 !important;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.95);
+}}
 
-@keyframes neuralScan {
-    0% { transform: translateX(-100%); }
-    100% { transform: translateX(100%); }
-}
+button[data-baseweb="tab"] {{
+    background: rgba(1, 15, 25, 0.6) !important;
+    border: 1px solid rgba(0, 217, 255, 0.3) !important;
+    border-radius: 10px 10px 0 0 !important;
+    color: #00d9ff !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-weight: 900 !important;
+}}
 
-.neural-glass:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 
-        0 50px 100px rgba(0,0,0,0.6),
-        0 0 50px rgba(0,217,255,0.8),
-        inset 0 1px 0 rgba(0,217,255,0.4);
-}
+button[aria-selected="true"] {{
+    background: rgba(0, 217, 255, 0.2) !important;
+    border-color: #00d9ff !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+}}
 
-.neural-glass:hover::before { opacity: 1; }
-
-/* Orbitron Title */
-.neural-title {
+.neural-title {{
     font-family: 'Orbitron', monospace !important;
     font-weight: 900 !important;
-    background: linear-gradient(45deg, #00d9ff, #ff00ff, #00ff88, #00d9ff);
-    background-size: 300% 300%;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #00ff88 0%, #00d9ff 25%, #ff00ff 50%, #ffff00 75%, #00ff88 100%);
+    background-size: 400% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: gradientShift 3s ease infinite, neuralPulse 2s ease-in-out infinite;
-}
+    animation: chromaShift 5s linear infinite;
+    letter-spacing: 7px;
+}}
 
-@keyframes gradientShift {
-    0%, 100% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-}
+@keyframes chromaShift {{
+    0% {{ background-position: 0% center; }}
+    100% {{ background-position: 400% center; }}
+}}
 
-@keyframes neuralPulse {
-    0%, 100% { filter: drop-shadow(0 0 10px #00d9ff); }
-    50% { filter: drop-shadow(0 0 30px #00d9ff) brightness(1.2); }
-}
-
-/* Holo-Metrics */
-.holo-metric {
-    background: linear-gradient(145deg, rgba(0,217,255,0.1), rgba(255,0,255,0.05));
-    border: 1px solid rgba(0,217,255,0.3);
-    border-radius: 20px;
-    padding: 2rem;
+.holo-metric {{
+    background: radial-gradient(circle at center, rgba(255, 0, 255, 0.25) 0%, rgba(0,4,8,0.98) 100%);
+    border: 3px solid #ff00ff;
+    border-radius: 28px;
+    padding: 3.5rem 2rem;
     text-align: center;
-    position: relative;
-    overflow: hidden;
-}
+    backdrop-filter: blur(25px);
+    animation: hyperGlow 1.5s infinite alternate ease-in-out;
+    max-width: 750px;
+    margin: 2rem auto;
+}}
 
-.holo-metric::before {
-    content: '';
-    position: absolute;
-    top: -50%; left: -50%; width: 200%; height: 200%;
-    background: radial-gradient(circle, rgba(0,217,255,0.1) 0%, transparent 70%);
-    opacity: 0;
-    transition: opacity 0.3s;
-}
+.price-display {{
+    font-size: 5rem; 
+    color: #00ff88; 
+    font-weight: 900; 
+    font-family: 'Orbitron', sans-serif; 
+    letter-spacing: 2px; 
+    text-shadow: 0 0 45px rgba(0,255,136,0.9);
+    white-space: nowrap;
+}}
 
-.holo-metric:hover::before { opacity: 1; }
+@keyframes hyperGlow {{
+    0% {{ box-shadow: 0 0 40px rgba(0, 255, 136, 0.4); border-color: #00ff88; }}
+    100% {{ box-shadow: 0 0 90px rgba(255, 0, 255, 0.7); border-color: #ff00ff; }}
+}}
 
-/* Neural Buttons */
-.neural-btn {
-    background: linear-gradient(135deg, #ff00ff 0%, #00d9ff 50%, #00ff88 100%) !important;
-    border: 2px solid transparent !important;
+.stButton>button {{
+    background: linear-gradient(45deg, #ff00ff 0%, #00d9ff 50%, #00ff88 100%) !important;
+    background-size: 300% auto !important;
+    color: #ffffff !important;
+    font-family: 'Orbitron', sans-serif !important;
+    font-weight: 900 !important;
+    letter-spacing: 5px !important;
+    border: none !important;
     border-radius: 20px !important;
-    padding: 18px 45px !important;
-    font-family: 'Orbitron', monospace !important;
-    font-weight: 700 !important;
-    font-size: 18px !important;
-    color: #000 !important;
-    position: relative !important;
-    overflow: hidden !important;
-    box-shadow: var(--neural-glow) !important;
-    text-transform: uppercase !important;
-    letter-spacing: 2px !important;
-}
+    padding: 1.5rem 3.5rem !important;
+    box-shadow: 0 0 50px rgba(0, 255, 136, 0.5) !important;
+}}
 
-.neural-btn:hover {
-    transform: translateY(-5px) scale(1.05) !important;
-    box-shadow: 0 25px 50px rgba(255,0,255,0.6) !important;
-    background: linear-gradient(135deg, #00ff88 0%, #00d9ff 50%, #ff00ff 100%) !important;
-}
+div[data-baseweb="input"], div[data-baseweb="select"] {{
+    background-color: rgba(0, 6, 12, 0.75) !important;
+    border: 1px solid rgba(0, 255, 136, 0.4) !important;
+    border-radius: 14px !important;
+}}
 
-/* Voice Activation */
-.voice-orb {
-    background: linear-gradient(135deg, #00ff88 0%, #00d9ff 100%) !important;
-    border-radius: 50% !important;
-    width: 70px !important;
-    height: 70px !important;
-    padding: 0 !important;
-    box-shadow: 0 0 40px rgba(0,255,136,0.8) !important;
-    border: 3px solid rgba(255,255,255,0.3) !important;
-}
-
-/* AI Chat Neural */
-.ai-chat-bubble {
-    background: linear-gradient(135deg, rgba(0,217,255,0.2) 0%, rgba(255,0,255,0.1) 100%);
-    border: 1px solid rgba(0,217,255,0.4);
-    border-radius: 20px;
-    padding: 1.5rem;
-    margin: 1rem 0;
-}
-
-/* Matrix Rain Effect */
-.matrix-bg {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100vh;
-    pointer-events: none; z-index: -1;
-    opacity: 0.1;
-}
+.folium-pulsing-marker {{
+    border: 3px solid #00ff88;
+    background: rgba(0, 255, 136, 0.4);
+    border-radius: 50%;
+    animation: mapPulse 1.2s infinite ease-out;
+}}
+@keyframes mapPulse {{
+    0% {{ transform: scale(0.3); opacity: 1; }}
+    100% {{ transform: scale(1.5); opacity: 0; }}
+}}
 </style>
 """, unsafe_allow_html=True)
 
-# =========================
-# 2026 MATRIX RAIN SYSTEM
-# =========================
-matrix_rain = """
-<div class="matrix-bg">
-    <canvas id="matrixRain"></canvas>
-</div>
+# Particle Background Engine
+st.markdown("""
+<canvas id="neuralParticles" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none;"></canvas>
 <script>
-const canvas = document.getElementById('matrixRain');
-const ctx = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-const chars = '01ハカナアイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
-const fontSize = 14;
-const columns = canvas.width / fontSize;
-
-const drops = Array(Math.floor(columns)).fill(1);
-
-function draw() {
-    ctx.fillStyle = 'rgba(0, 4, 40, 0.05)';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-    
-    ctx.fillStyle = '#00d9ff';
-    ctx.font = `${fontSize}px monospace`;
-    
-    drops.forEach((y, i) => {
-        const text = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(text, i * fontSize, y * fontSize);
-        
-        if (y * fontSize > canvas.height && Math.random() > 0.975)
-            drops[i] = 0;
-        else drops[i]++;
-    });
+const canvas = document.getElementById('neuralParticles'); const ctx = canvas.getContext('2d'); let particles = [];
+function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; } window.addEventListener('resize', resize); resize();
+class Particle {
+    constructor() { this.x = Math.random() * canvas.width; this.y = Math.random() * canvas.height; this.vx = (Math.random() - 0.5) * 0.8; this.vy = (Math.random() - 0.5) * 0.8; this.radius = Math.random() * 2 + 1; }
+    update() { this.x += this.vx; this.y += this.vy; if(this.x < 0 || this.x > canvas.width) this.vx *= -1; if(this.y < 0 || this.y > canvas.height) this.vy *= -1; }
+    draw() { ctx.beginPath(); ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2); ctx.fillStyle = 'rgba(0, 255, 136, 0.2)'; ctx.fill(); }
 }
-setInterval(draw, 50);
+for(let i=0; i<60; i++) particles.push(new Particle());
+function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height); particles.forEach(p => { p.update(); p.draw(); });
+    for(let i=0; i<particles.length; i++) {
+        for(let j=i+1; j<particles.length; j++) {
+            let dx = particles[i].x - particles[j].x; let dy = particles[i].y - particles[j].y; let dist = Math.sqrt(dx*dx + dy*dy);
+            if(dist < 120) { ctx.beginPath(); ctx.moveTo(particles[i].x, particles[i].y); ctx.lineTo(particles[j].x, particles[j].y); ctx.strokeStyle = `rgba(0, 217, 255, ${0.15 - dist/120})`; ctx.lineWidth = 0.5; ctx.stroke(); }
+        }
+    }
+    requestAnimationFrame(animate);
+}
+animate();
 </script>
-"""
-st.components.v1.html(matrix_rain, height=0)
+""", unsafe_allow_html=True)
+
+def render_smooth_overlay(b64_video_data, fixed_heading):
+    return f'''
+    <div style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 4, 8, 0.88); backdrop-filter: blur(20px); z-index: 999999; display: flex; justify-content: center; align-items: center;">
+        <div style="background: rgba(1, 15, 24, 0.96); border: 3px solid #ff00ff; box-shadow: 0 0 90px rgba(255, 0, 255, 0.7); padding: 35px; border-radius: 32px; text-align: center; max-width: 600px; width: 90%;">
+            <div style="color: #00d9ff; font-family: 'Orbitron', monospace; font-size: 1.4rem; font-weight: 900; letter-spacing: 4px; margin-bottom: 25px;">
+                ⚡ {fixed_heading}
+            </div>
+            <video width="100%" autoplay loop muted playsinline style="border-radius: 20px; max-height: 300px; object-fit: cover; border: 2px solid rgba(0,217,255,0.4);">
+                <source src="data:video/mp4;base64,{b64_video_data}" type="video/mp4">
+            </video>
+        </div>
+    </div>
+    '''
 
 # =========================
-# Load Neural Model
+# PRODUCTION FILE IMPORTS
 # =========================
 @st.cache_resource
-def load_neural_model():
-    pipeline = joblib.load('xgb_pipeline_new.pkl')
-    expected_columns = joblib.load('columns.pkl')
-    return pipeline, expected_columns
+def load_production_pipeline():
+    with open("kc_house_model.pkl", "rb") as f:
+        return pickle.load(f)
 
-pipeline, expected_columns = load_neural_model()
+data_bundle = load_production_pipeline()
+model = data_bundle["model"]
+kmeans = data_bundle["kmeans"]
+training_columns = data_bundle["training_columns"]
 
-# =========================
-# 2026 NEURAL SIDEBAR - AI AGENT
-# =========================
-with st.sidebar:
-    st.markdown("""
-    <div class='neural-glass' style='padding: 2.5rem;'>
-        <h3 class='neural-title' style='font-size: 1.8rem; text-align: center;'>🤖 Neural Oracle</h3>
-    """, unsafe_allow_html=True)
-    
-    # Voice activation
-    col_voice1, col_voice2 = st.columns([3, 1])
-    with col_voice1:
-        query = st.text_input("💭 Neural Query", placeholder="Ask about property value...")
-    with col_voice2:
-        if st.button("🎤", key="voice_orb", help="Voice Neural Input", use_container_width=True):
-            st.balloons()
-            st.success("🔊 Voice input activated!")
-    
-    # AI Response
-    st.markdown("""
-    <div class='ai-chat-bubble'>
-        <div style='color: #00d9ff; font-weight: 500;'>Neural Oracle:</div>
-        <div style='color: rgba(255,255,255,0.9); font-size: 0.9rem;'>
-            🧠 Ready to predict property matrix. Input neural data for quantum valuation.
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    st.markdown("</div>", unsafe_allow_html=True)
-    
-    st.markdown("---")
-    
-    # Neural Stats
-    st.markdown("""
-    <div class='neural-glass' style='padding: 2rem;'>
-        <h4 style='color: #00d9ff;'>⚡ Neural Matrix</h4>
-        <div style='color: #00ff88;'>Model: XGBoost Neural Net</div>
-        <div style='color: #00ff88;'>Neurons: 12D Vector Space</div>
-        <div style='color: #00ff88;'>Accuracy: 92.7%</div>
-    </div>
-    """, unsafe_allow_html=True)
-
-# =========================
-# 2026 MAIN INTERFACE
-# =========================
 st.markdown("""
-<div style='text-align: center; padding: 4rem 2rem;'>
-    <div style='font-size: 7rem; margin-bottom: 1rem; filter: drop-shadow(0 0 50px #00d9ff);'>🏠</div>
-    <h1 class='neural-title' style='font-size: 5rem; margin-bottom: 1rem;'>Neural House Oracle</h1>
-    <p style='font-size: 1.6rem; color: rgba(255,255,255,0.9); max-width: 600px; margin: 0 auto;'>
-        Quantum Property Valuation • 2026 Neural Intelligence
-    </p>
+<div style='text-align: center; margin-top: 1rem; margin-bottom: 2rem;'>
+    <h1 class='neural-title' style='font-size: 4.6rem; letter-spacing: 9px;'>ORACLE PREDICTION TERMINAL</h1>
+    <p style='font-size: 1.3rem; color: #00d9ff; font-family: "Orbitron"; letter-spacing: 6px;'>Infinite Multiverse Quantum Core Array</p>
 </div>
 """, unsafe_allow_html=True)
 
-# Neural Input Matrix
-st.markdown("""
-<div class='neural-glass' style='padding: 3rem; margin: 2rem 0;'>
-    <h3 style='color: #00d9ff; text-align: center;'>🧠 Neural Input Matrix</h3>
-""", unsafe_allow_html=True)
+video_placeholder = st.empty()
 
-# 2026 Tabbed Neural Interface
-tab1, tab2, tab3 = st.tabs(["🌍 Geo-Matrix", "🏗️ Property Core", "💰 Economic Vector"])
+# ==========================================
+# CONDITION 1: INPUT PANELS ACTIVE
+# ==========================================
+if not st.session_state.predicted:
 
-with tab1:
-    col1, col2 = st.columns(2)
-    with col1: longitude = st.number_input("🗺️ Longitude", value=-122.23, format="%.4f")
-    with col2: latitude = st.number_input("🗺️ Latitude", value=37.88, format="%.4f")
+    main_col1, main_col2 = st.columns([1.1, 0.9])
 
-with tab2:
-    col1, col2 = st.columns(2)
-    with col1: 
-        housing_median_age = st.slider("⏳ Age Matrix", 1, 52, 41)
-        total_rooms = st.number_input("🚪 Room Count", value=880)
-    with col2:
-        total_bedrooms = st.number_input("🛏️ Bedroom Vector", value=129)
-        population = st.number_input("👥 Population Density", value=322)
+    with main_col1:
+        st.markdown("<div class='neural-glass' style='height: 100%;'>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #00ff88; font-family:Orbitron; margin-top:0; letter-spacing:2px;'>📍 GEOSPATIAL VECTOR INTERCEPT</h3>", unsafe_allow_html=True)
+        st.write("Target area intercept set karne ke liye map par node choose karein:")
+        
+        m = folium.Map(location=[st.session_state.clicked_lat, st.session_state.clicked_long], zoom_start=10, tiles="CartoDB dark_matter")
+        folium.Marker(
+            [st.session_state.clicked_lat, st.session_state.clicked_long],
+            icon=folium.DivIcon(html=f'<div class="folium-pulsing-marker" style="width:24px; height:24px;"></div>')
+        ).add_to(m)
+        
+        map_data = st_folium(
+            m,
+            width=400,
+            height=370,
+            key="infinite_god_map",
+            returned_objects=["last_clicked"],
+            use_container_width=True,
+        )
 
-with tab3:
-    col1, col2 = st.columns(2)
-    with col1:
-        households = st.number_input("🏠 Household Matrix", value=126)
-        median_income = st.number_input("💵 Income Scalar (×10k)", value=8.3252, format="%.4f")
-    with col2:
-        ocean_proximity = st.selectbox("🌊 Ocean Quantum", ["<1H OCEAN", "INLAND", "NEAR BAY", "NEAR OCEAN", "ISLAND"])
+        if map_data and map_data.get("last_clicked"):
+            clicked = map_data.get("last_clicked")
 
-st.markdown("</div>", unsafe_allow_html=True)
+            # streamlit-folium click payloads differ across versions.
+            # Common shapes:
+            # 1) {"lat": ..., "lng": ...}
+            # 2) {"lat": ..., "lon": ...}
+            # 3) {"lat": ..., "lng": ...} nested under another key
+            # We'll parse defensively.
+            def _get_coord(d, *keys):
+                for k in keys:
+                    if isinstance(d, dict) and k in d:
+                        return d[k]
+                return None
 
-# =========================
-# NEURAL PREDICTION BUTTON
-# =========================
-if st.button("🚀 **ACTIVATE NEURAL VALUATION**", key="neural_predict", use_container_width=True, help="Quantum price computation"):
+            if isinstance(clicked, dict) and "lat" in clicked:
+                new_lat = _get_coord(clicked, "lat")
+                new_long = _get_coord(clicked, "lng", "lon")
+            else:
+                # Try one extra nesting level if present
+                new_lat = _get_coord(clicked, "lat")
+                new_long = _get_coord(clicked, "lng", "lon")
+
+            if new_lat is not None and new_long is not None:
+                new_lat = float(new_lat)
+                new_long = float(new_long)
+
+                if (
+                    abs(new_lat - st.session_state.clicked_lat) > 0.0001
+                    or abs(new_long - st.session_state.clicked_long) > 0.0001
+                ):
+                    st.session_state.clicked_lat = new_lat
+                    st.session_state.clicked_long = new_long
+                    st.rerun()
+
+        c1, c2, c3 = st.columns(3)
+        with c1: lat_input = st.number_input("GEOGRAPHIC LAT 🌐", value=st.session_state.clicked_lat, format="%.5f")
+        with c2: long_input = st.number_input("GEOGRAPHIC LONG 🌐", value=st.session_state.clicked_long, format="%.5f")
+        with c3: zipcode = st.text_input("📮 LOCATION ZIPCODE", "98103")
+        
+        if lat_input != st.session_state.clicked_lat or long_input != st.session_state.clicked_long:
+            st.session_state.clicked_lat = lat_input
+            st.session_state.clicked_long = long_input
+            st.rerun()
+            
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    with main_col2:
+        st.markdown("<div class='neural-glass'>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: #00d9ff; font-family:Orbitron; margin-top:0; letter-spacing:2px;'>🏗️ STRUCTURAL ATTRIBUTE CORE</h3>", unsafe_allow_html=True)
+        
+        tab_core, tab_premium = st.tabs(["DIMENSION VECTORS", "PREMIUM SCALARS"])
+        
+        with tab_core:
+            sqft_living = st.number_input("📐 Interior Space (Sqft Living)", value=2300, min_value=300)
+            sqft_lot = st.number_input("🟩 Outer Plot Footprint (Sqft Lot)", value=7000, min_value=500)
+            bedrooms = st.slider("🛏️ Structural Bedroom Matrix", 1, 8, 3)
+            bathrooms = st.slider("🚿 Bathroom Capacity", 1.0, 6.0, 2.5, step=0.25)
+            floors = st.slider("🏢 Floor Elevation Levels", 1.0, 3.5, 2.0, step=0.5)
+            
+        with tab_premium:
+            grade = st.slider("🛠️ Materials & Architectural Grade", 1, 13, 8)
+            condition = st.slider("🔧 Maintenance Reliability Index", 1, 5, 4)
+            yr_built = st.number_input("⏳ Epoch Constructed (Year)", min_value=1900, max_value=2026, value=2000)
+            yr_renovated = st.number_input("🔨 Modernization Loop Cycle", min_value=0, max_value=2026, value=0)
+            view = st.slider("👁️ Panoramic Topography View", 0, 4, 0)
+            waterfront = st.selectbox("🌊 Waterfront Riparian Proximity", [0, 1], format_func=lambda x: "ACTIVE PREMIUM NODE" if x==1 else "STANDARD MATRIX")
+            
+        st.markdown("</div>", unsafe_allow_html=True)
+
+    st.markdown("<div style='text-align: center; margin-top:1rem;'>", unsafe_allow_html=True)
+    if st.button("⚡ EXECUTE NEURAL HOUSE PRICE INFERENCE", key="compute_btn", use_container_width=True):
+        
+        fixed_title = "EXECUTING REAL ESTATE VALUATION CORE..."
+        for i in range(5):
+            video_html = render_smooth_overlay(process_video_b64, fixed_title)
+            video_placeholder.html(video_html)
+            time.sleep(1.0)
+            
+        input_matrix = {
+            'bedrooms': bedrooms, 'bathrooms': bathrooms, 'sqft_living': sqft_living, 'sqft_lot': max(sqft_lot, 1),
+            'floors': floors, 'waterfront': waterfront, 'view': view, 'condition': condition, 'grade': grade,
+            'sqft_above': sqft_living, 'sqft_basement': 0, 'sqft_living15': sqft_living, 'sqft_lot15': sqft_lot,
+            'lat': st.session_state.clicked_lat, 'long': st.session_state.clicked_long,
+            'house_age': 2026 - yr_built, 'is_renovated': 1 if yr_renovated > 0 else 0,
+            'grade_squared': grade ** 2, 'living_per_lot': sqft_living / (sqft_lot + 1),
+            'sqft_living_log': np.log1p(sqft_living), 'premium_view': waterfront * 3 + view
+        }
+        
+        df_user = pd.DataFrame([input_matrix])
+        df_user['location_cluster'] = str(kmeans.predict(df_user[['lat', 'long']])[0])
+        df_user['zipcode'] = str(zipcode)
+        
+        df_user_encoded = pd.get_dummies(df_user)
+        for col in training_columns:
+            if col not in df_user_encoded.columns: df_user_encoded[col] = 0
+        df_user_encoded = df_user_encoded[training_columns]
+        
+        predicted_log = model.predict(df_user_encoded)
+        st.session_state.valuation = np.expm1(predicted_log)[0]
+        
+        st.session_state.predicted = True
+        video_placeholder.empty()
+        st.rerun()
+    st.markdown("</div>", unsafe_allow_html=True)
+
+# ==========================================
+# CONDITION 2: DIRECT CLEAN PREDICTED PRICE
+# ==========================================
+else:
+    st.markdown("<div class='neural-glass' style='max-width:850px; margin: 3rem auto; text-align:center;'>", unsafe_allow_html=True)
     
-    with st.spinner("🧠 Computing neural pathways..."):
-        time.sleep(2)
+    st.markdown("<h2 class='neural-title' style='font-size: 2.8rem; letter-spacing: 5px;'>🛰️ PREDICTED PRICE</h2>", unsafe_allow_html=True)
     
-    # Neural computation
-    input_data = pd.DataFrame([[
-        longitude, latitude, housing_median_age,
-        total_rooms, total_bedrooms, population,
-        households, median_income, ocean_proximity
-    ]], columns=expected_columns[:9])
-    
-    # Feature engineering matrix
-    input_data["rooms_per_household"] = input_data["total_rooms"] / input_data["households"]
-    input_data["bedrooms_per_room"] = input_data["total_bedrooms"] / input_data["total_rooms"]
-    input_data["population_per_household"] = input_data["population"] / input_data["households"]
-    
-    # Quantum prediction
-    prediction = pipeline.predict(input_data)[0]
-    
-    # =========================
-    # 2026 HOLOGRAPHIC RESULT
-    # =========================
-    st.markdown("""
-    <div class='neural-glass' style='padding: 4rem; margin: 3rem 0; text-align: center;'>
-        <h2 class='neural-title' style='font-size: 2.5rem;'>🏠 QUANTUM VALUATION COMPLETE</h2>
-    """, unsafe_allow_html=True)
-    
-    # Holo-price display
     st.markdown(f"""
-    <div style='position: relative; display: inline-block;'>
-        <div class='holo-metric' style='padding: 3rem 4rem; margin: 2rem 0;'>
-            <div style='font-size: 4rem; color: #00ff88; font-weight: 900;'>
-                ${round(prediction, 0):,}
+        <div class='holo-metric' style='margin-top: 2.5rem; margin-bottom: 2.5rem;'>
+            <div class='price-display'>
+                ${st.session_state.valuation:,.2f}
             </div>
-            <div style='color: #00d9ff; font-size: 1.4rem; margin-top: 1rem;'>Neural Value Matrix</div>
-            <div style='color: rgba(255,255,255,0.7); font-size: 1rem;'>Generated: {datetime.now().strftime('%H:%M:%S')}</div>
+            <div style='color: #00d9ff; font-size: 1.2rem; text-transform: uppercase; margin-top: 20px; font-family:Orbitron; letter-spacing:3px;'>Computed Property Valuation Core</div>
         </div>
-    </div>
     """, unsafe_allow_html=True)
     
-    # Neural Insights
-    st.markdown("""
-    </div>
-    <div class='neural-glass' style='padding: 2.5rem; margin: 2rem 0;'>
-        <h4 style='color: #00ff88;'>🧠 Neural Insights</h4>
-    """, unsafe_allow_html=True)
-    
-    insights = {
-        'high': ['🚀 Premium ocean proximity detected', '💎 High income scalar', '🏗️ Optimal property matrix'],
-        'medium': ['⚡ Strong location vectors', '📈 Above-average room density', '🌊 Coastal influence'],
-        'low': ['🔧 Age matrix adjustment needed', '📍 Inland positioning', '💰 Income optimization opportunity']
-    }
-    
-    price_category = 'high' if prediction > 300000 else 'medium' if prediction > 150000 else 'low'
-    for insight in insights[price_category]:
-        st.markdown(f"""
-        <div style='display: flex; align-items: center; padding: 1rem; margin: 0.5rem 0;
-                   background: rgba(0,255,136,0.1); border-radius: 12px; border-left: 4px solid #00ff88;'>
-            <span style='font-size: 1.5rem; margin-right: 1rem;'>{insight[:2]}</span>
-            <span style='color: rgba(255,255,255,0.95);'>{insight[3:]}</span>
-        </div>
-        """, unsafe_allow_html=True)
-    
+    st.write("")
+    if st.button("🔄 RUN NEW VALUATION MODEL", use_container_width=True):
+        st.session_state.predicted = False
+        st.rerun()
+        
     st.markdown("</div>", unsafe_allow_html=True)
-
-# =========================
-# 2026 CYBER FOOTER
-# =========================
-st.markdown("""
-<div style='text-align: center; padding: 4rem 2rem; color: rgba(0,217,255,0.6); 
-           border-top: 1px solid rgba(0,217,255,0.3); margin-top: 4rem;'>
-    <h4 class='neural-title' style='font-size: 1.8rem;'>Neural House Oracle 2026</h4>
-    <p style='font-size: 1rem;'>Quantum Property Intelligence • May 2026</p>
-    <p style='font-size: 0.85rem; color: rgba(255,255,255,0.4);'>
-        ⚠️ Neural advisory system. Consult real estate professionals.
-    </p>
-</div>
-""", unsafe_allow_html=True)
